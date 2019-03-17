@@ -1,0 +1,97 @@
+4. Return the first name, last name and city of all customers who live in Canada. Order the re-
+sults first by the last then by the first name.
+  Ans:
+   select cus.first_name,cus.last_name,c.city,ctry.country_id
+   
+FROM customer cus
+
+   inner join address a
+
+   on a.address_id=cus.address_id
+
+   inner join city c
+   
+on c.city_id=a.city_id
+   
+inner join country ctry
+   
+on ctry.country_id=c.country_id
+   where ctry.country= 'canada'
+   order by cus.last_name,cus.first_name;
+
+   RESULT:
+
+      first_name	last_name	city	       country
+         DERRICK	BOURQUE  	Gatineau	Canada
+         LORETTA	CARPENTER	Oshawa	        Canada
+         CURTIS	        IRBY	        Richmond Hill	Canada
+         DARRELL	POWER	        Halifax	        Canada
+         TROY	        QUIGLEY	        Vancouver	Canada
+
+
+
+5. How many customers are from Brazil??
+   Ans:
+    select  count(cus.customer_id)
+
+    FROM customer cus
+	
+    inner join address a
+	
+    on a.address_id=cus.address_id
+	
+    inner join city c
+	
+    on c.city_id=a.city_id
+	
+    inner join country ctry
+	
+    on ctry.country_id=c.country_id
+	
+    where ctry.country= 'brazil';
+ 
+   RESULT:
+    
+    count(cus.customer_id)
+           28
+
+6. Return the "popular countries"? (that is, the ones with more than 20 customer). For each
+such country, return its name and its correspond number of customers. Order the result by the
+number of customers (descending).
+    Ans:
+      select count(cus.customer_id), ctry.country 
+  
+    FROM customer cus
+	
+      join address a
+	
+      on a.address_id=cus.address_id
+	
+      join city c
+	
+      on c.city_id=a.city_id
+	
+      join country ctry
+	
+      on ctry.country_id=c.country_id
+   
+      group by ctry.country
+   
+      having count(cus.customer_id) >20
+    
+      order by count(cus.customer_id) desc ;
+
+  RESULT:
+
+     count(cus.customer_id)     country
+                  60	        India
+                  53	        China
+                  36           	United States
+                  31	        Japan
+                  30           	Mexico
+                  28	        Brazil
+                  28	        Russian Federation
+
+
+
+
